@@ -31,7 +31,7 @@ public class ButtonMasherGame extends SimpleGame {
 
     private final Texture background = new Texture(Gdx.files.internal("ButtonMasherGame/sky4.png"));
 
-    private static final BitmapFont font = new BitmapFont(Gdx.files.internal("ButtonMasherGame/c64_low3_black.fnt"));   // for drawing text
+    private static final BitmapFont font = new BitmapFont(Gdx.files.internal("english.fnt"));   // for drawing text
 
     public ButtonMasherGame(GameSession session) {                     // Constructor (required)
         super(session, 256, 320, font, font);              // width and height of screen in pixels

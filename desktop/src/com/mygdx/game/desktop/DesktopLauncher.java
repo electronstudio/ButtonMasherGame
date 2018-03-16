@@ -12,7 +12,7 @@ import uk.me.fantastic.retro.games.SimpleGameFactory;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		DesktopCallback callback = new DesktopCallback();
-		SimpleGameFactory factory = new SimpleGameFactory("Button Masher", ButtonMasherGame0.class);
+		SimpleGameFactory factory = new SimpleGameFactory("Button Masher", ButtonMasherGame.class);
 		App app = new SimpleApp(callback, "Button Masher", factory);
 		new LwjglApplication(app, callback.getConfig());
 	}
