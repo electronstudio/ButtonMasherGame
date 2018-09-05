@@ -62,11 +62,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
         compile name: 'desktop-0.14.0'
-     //////   compile fileTree('../../retrogame/desktop/build/libs')
-     //  compile project(path: ':retrogame', configuration: 'classpath')
-    //    compile project(":retrogame")
-      //  compile project(":retrogame")
-     //   compile project(":retrogame:desktop")
+     //   compile fileTree('../../retrogame/desktop/build/libs')
     }
 }
 
@@ -83,17 +79,12 @@ project(":core") {
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-      ////  compile fileTree('../../retrogame/core/build/libs')
-
-        compile name: 'core-0.14.0'
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-        compile "net.onedaybeard.artemis:artemis-odb:2.1.0"
         compile 'com.beust:klaxon:0.30'
-      //  compile project(":retrogame:core")
 
-
+        //  compile fileTree('../../retrogame/core/build/libs')
+        compile name: 'core-0.14.0'
     }
 }
 
