@@ -12,14 +12,11 @@ import uk.me.fantastic.retro.games.Player;
 import uk.me.fantastic.retro.games.SimpleGame;
 import uk.me.fantastic.retro.screens.GameSession;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
- * A simple RetroWar game
+ * An even simpler version of ButtonMasher
  */
 
-public class ButtonMasherGame0 extends SimpleGame {
+public class ButtonMasherGameReallySimpleVersion extends SimpleGame {
 
     private String message = "";                        // We will print this to screen
     private final boolean[] buttonMashed = new boolean[4];   // Remember if button was held down
@@ -33,7 +30,7 @@ public class ButtonMasherGame0 extends SimpleGame {
 
     private static final BitmapFont font = new BitmapFont(Gdx.files.internal("ButtonMasherGame/c64_low3_black.fnt"));   // for drawing text
 
-    public ButtonMasherGame0(GameSession session) {                     // Constructor (required)
+    public ButtonMasherGameReallySimpleVersion(GameSession session) {                     // Constructor (required)
         super(session, 256, 320, font, font);              // width and height of screen in pixels
         for (int i = 0; i < sprites.length; i++) {                      // Set initial positions for the sprites
             sprites[i].setPosition(36 + i * 56, 33);
