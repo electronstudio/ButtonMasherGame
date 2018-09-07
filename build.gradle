@@ -61,7 +61,7 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
-        compile name: 'desktop-0.14.0'
+     //   compile name: 'desktop-0.14.0'
      //   compile fileTree('../../retrogame/desktop/build/libs')
     }
 }
@@ -84,7 +84,7 @@ project(":core") {
         compile 'com.beust:klaxon:0.30'
 
         //  compile fileTree('../../retrogame/core/build/libs')
-        compile name: 'core-0.14.0'
+        compile name: 'retrowar-common', version: '+'
     }
 }
 

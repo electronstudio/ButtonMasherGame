@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import org.jetbrains.annotations.NotNull;
-import uk.me.fantastic.retro.games.Player;
-import uk.me.fantastic.retro.games.SimpleGame;
+import uk.me.fantastic.retro.Player;
+import uk.me.fantastic.retro.SimpleGame;
 import uk.me.fantastic.retro.screens.GameSession;
 
 
@@ -20,7 +20,7 @@ import uk.me.fantastic.retro.screens.GameSession;
 
 public class ButtonMasherGame extends SimpleGame {
     private int gameLength;                             // Lenth of game in seconds
-    private float time = 0;                            // Time elapsed since start of game
+    private float time;                   // Time remaining in game
     private String message = "";                        // We will print this to screen
     private final boolean[] buttonMashed = new boolean[4];   // Remember if button was held down
     private final Texture baloon = new Texture(Gdx.files.internal("mods/ButtonMasherGame/baloon.png"));
@@ -37,7 +37,7 @@ public class ButtonMasherGame extends SimpleGame {
 
     public ButtonMasherGame(GameSession session) {               // Constructor (required)
       this(session, 10);
-    }
+    } // Required constructor
 
     public ButtonMasherGame(GameSession session, int gameLength){   // Not required but lets us set gamelength
         super(session, 256, 320, font, font, false);   // width and height of screen in pixels
@@ -45,42 +45,48 @@ public class ButtonMasherGame extends SimpleGame {
             sprites[i].setPosition(36 + i * 56, 33);
         }
         this.gameLength=gameLength;
+        time=gameLength+5;              // 5 seconds to get ready before start
     }
 
     @Override
     public void doLogic(float deltaTime) {  // Called automatically every frame
-        if (getPlayers().size() < 1) {       // Wait until there is at least 1 player before starting
-            message = "\nPress A or SPACE to join game";
-            return;
-        }
-        time += deltaTime;                  // Add the time since last frame to timer
-        if (time < 5) { // ready  phase
-            message = "\nPress A or SPACE to join game\n\nGET READY " + (int) (5 - time);
-        } else if (time < gameLength+5) {
+        doTimer(deltaTime);                 // deltaTime is time passed since last frame
+        if (time > gameLength) {  // Game has three phases, current phase depends on how much time is left
+            message = "\nPress A or SPACE to join game\n\nGET READY "; // ready phase
+        } else if (time > 0) {
             play(deltaTime);                                        // playing phase
-        } else if (time < gameLength+15) {
+        } else {    // time <= 0
             message = "SCORES\n\n" + simpleHighScoreTable();        // end phase
-        } else {
+        }
+    }
+
+    private void doTimer(float deltaTime) {
+        if (getPlayers().size() >= 1) {         // Dont start timing until there are at least one players
+            time -= deltaTime;                  // Subtract the time since last frame from the time remaining
+        }
+        if (time < -7) {
+            getSession().findWinners().forEach(winner -> winner.incMetaScore(1));
             gameover();                         // end the game
         }
     }
 
+
     private void play(float deltaTime) {
-        message = "MASH BUTTON " + (int) (gameLength+5 - time);
+        message = "MASH BUTTON " + Float.valueOf(time).intValue();
         for (int i = 0; i < Math.min(getPlayers().size(), 4); i++) {  // max of 4 players
             Sprite sprite = sprites[i];
             Player player = getPlayers().get(i);
             sprite.setY(sprite.getY() - deltaTime * 20);            // move sprite downwards
             if (player.getInput().getA()) {              // if button is pressed
                 if (!buttonMashed[i]) {                             // prevent holding down button to cheat
-                    sprite.setY(sprite.getY() + deltaTime * 300);   // move sprite upwards
+                    sprite.setY(sprite.getY() + deltaTime * 250);   // move sprite upwards
                     buttonMashed[i] = true;
                 }
             } else {
                 buttonMashed[i] = false;
             }
             if (sprite.getY() < 33) sprite.setY(33);                 // dont fall through floor
-            player.setScore((int) (sprite.getY()));  // score = height
+            player.setScore((int) (sprite.getY()-33));  // score = height
 
         }
     }
@@ -91,7 +97,7 @@ public class ButtonMasherGame extends SimpleGame {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.draw(background, 0, 0);
         drawPlayers(batch);
-        font.draw(batch, message, 0, 312, 256, Align.center, false);
+        font.draw(batch, message, 0, 212, 256, Align.center, false);
     }
 
 

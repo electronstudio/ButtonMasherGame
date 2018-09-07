@@ -4,9 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;
-import uk.me.fantastic.retro.games.AbstractGameFactory;
-import uk.me.fantastic.retro.games.Game;
-import uk.me.fantastic.retro.games.SimpleGameFactory;
+import uk.me.fantastic.retro.AbstractGameFactory;
+import uk.me.fantastic.retro.Game;
 import uk.me.fantastic.retro.menu.MultiChoiceMenuItem;
 import uk.me.fantastic.retro.screens.GameSession;
 
@@ -86,13 +85,13 @@ public class ButtonMasherGameFactory extends AbstractGameFactory {
             new MultiChoiceMenuItem("Game length: ",
                     this::menuSelect,
                     Arrays.asList("SHORT","LONG"),
-                    Arrays.asList(5, 10))
+                    Arrays.asList(10, 25))
     );
 
     /** Used to store what option is currently chosen for how long game should be.
      *  If you dont have options or implement them differently you dont need this
      */
-    private int gameLength = 5;
+    private int gameLength = 10;
 
     /** Used by MultiChoiceMenuItem to be called when menu is selected to update
      *  selecttion.
